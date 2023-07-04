@@ -1,0 +1,36 @@
+# Install Google Chrome 
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+# Install Python
+sudo apt install python3
+which python3 # Where is python installed
+echo $PATH # See env vars
+export PATH=$PATH:<path to python> # Add python to env vars
+sudo apt install python3.10-venv # Install the virtual env package for python.
+
+# Installing Visual Studio 
+sudo snap install --classic code
+code # run this to open the editor 
+
+# Git 
+sudo apt install git
+
+## Create SSH keys (need this for any remotes)
+ssh-keygen -t ed25519 -C 
+cat <path to key> # Copy this key to GitHub SSH Keys
+
+## Creating a new project 
+git init <project-folder>
+git config --global user.email <email>
+git config --global user.name <name>
+git config --global core.editor "vim"
+### Create a new repo in Github. Then copy the URL to that repo.
+git remote add origin git@github.com:some-repo.git
+### Create a local branch called main and add and commit any changes
+git push --set-upstream origin main 
+### origin is remote and main is local. This will push your 
+### local repository's commits to a remote repository, 
+### specifically to the branch named "main" on the remote repository called "origin."
+
+
