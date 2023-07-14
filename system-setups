@@ -1,6 +1,10 @@
 # Install Google Chrome 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
+# Go to settings and turn off hardware acceleration when available else Chrome will not render well 
+
+# Uninstall Google Chrome 
+sudo dpkg -r google-chrome-stable
 
 # Install Python
 sudo apt install python3
@@ -33,4 +37,8 @@ git push --set-upstream origin main
 ### local repository's commits to a remote repository, 
 ### specifically to the branch named "main" on the remote repository called "origin."
 
-
+# Installing Java
+sudo apt install default-jdk
+readlink -f `which javac` | sed "s:/bin/javac::" 
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
+echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
