@@ -42,3 +42,6 @@ sudo apt install default-jdk
 readlink -f `which javac` | sed "s:/bin/javac::" 
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/bin/java
 echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
+
+# Install curl 
+sudo snap install curl
