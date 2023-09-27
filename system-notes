@@ -17,6 +17,7 @@ sudo apt clean
 
 # Adding swap space
 # You should have at least the square root of the amount of memory you have. This seems to have solved my apps that kept crashing as I only had 2 Gigs. 
+free -h OR swapon --show # shows you how much swap space you have. 
 sudo swapoff -a
 sudo dd if=/dev/zero of=/swapfile bs=1024 count=8M # 8M gives you 8 Gigs of swap space
 sudo mkswap /swapfile
