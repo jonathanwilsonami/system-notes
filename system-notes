@@ -1,0 +1,20 @@
+# Trouble Shooting System
+lshw
+uname -r
+lsb_release 
+neofetch
+lscpu
+
+# GPU
+radeontop
+glxgears
+  mesa-utils
+lshw -C Video
+
+# Cleaning up installs & packages 
+sudo apt autoremove 
+sudo apt clean 
+
+
+
+
