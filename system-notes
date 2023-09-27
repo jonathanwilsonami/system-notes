@@ -15,6 +15,13 @@ lshw -C Video
 sudo apt autoremove 
 sudo apt clean 
 
+# Adding swap space
+# You should have at least the square root of the amount of memory you have. This seems to have solved my apps that kept crashing as I only had 2 Gigs. 
+sudo swapoff -a
+sudo dd if=/dev/zero of=/swapfile bs=1024 count=8M # 8M gives you 8 Gigs of swap space
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab # This change permanent 
 
 
 
