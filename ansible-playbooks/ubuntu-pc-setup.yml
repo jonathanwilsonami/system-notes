@@ -6,7 +6,7 @@
     - name: Ensure APT is up-to-date
       apt:
         update_cache: yes
-
+# Python
     - name: Install Python 3 and pip
       apt:
         name: 
@@ -14,16 +14,41 @@
           - python3-pip
         state: present
 
-    - name: Install default-jdk for Java
-      apt:
+    - name: Add Python3 to PATH
+      lineinfile:
+        path: ~/.bashrc
+        line: 'export PATH=$PATH:/usr/bin/python3'
+        state: present
+        create: yes
+      become: no
+      
+    - name: Install PySpark using pip3
+      pip:
+        name: pyspark
+        executable: pip3
+        
+# JAVA
+    - name: Install default-jdk
+      ansible.builtin.apt:
         name: default-jdk
         state: present
+        update_cache: yes
 
-    - name: Install curl
-      apt:
-        name: curl
-        state: present
+    - name: Determine JAVA_HOME
+      ansible.builtin.shell: readlink -f `which javac` | sed "s:/bin/javac::"
+      register: java_home_output
+      become: no  
 
+    - name: Export JAVA_HOME
+      ansible.builtin.shell: echo "export JAVA_HOME={{ java_home_output.stdout }}" >> ~/.bashrc
+      become: no  # This command will modify the .bashrc of the user Ansible connects as
+
+    - name: Ensure correct JAVA_HOME is set (optional - this sets it for the current session)
+      ansible.builtin.shell: export JAVA_HOME={{ java_home_output.stdout }}
+      become: no  # This command does not need to be run as root
+
+
+# Google
     - name: Add Google Chrome APT key
       apt_key:
         url: https://dl.google.com/linux/linux_signing_key.pub
@@ -39,7 +64,8 @@
         name: google-chrome-stable
         state: present
         update_cache: yes
-
+        
+# VS Code
     - name: Add Microsoft APT key for Visual Studio Code
       apt_key:
         url: https://packages.microsoft.com/keys/microsoft.asc
@@ -55,35 +81,15 @@
         name: code
         state: present
         update_cache: yes
-
-    - name: Install git and vim
+        
+# Other packages to install 
+    - name: Install git, curl and vim
       apt:
         name:
           - git
           - vim
+          - curl
         state: present
-      
-    - name: Add Java to PATH
-      lineinfile:
-        path: ~/.bashrc
-        line: 'export PATH=$PATH:/usr/lib/jvm/java-11-openjdk-amd64/bin'
-        state: present
-        create: yes
-      become: no
-
-    - name: Add Python3 to PATH
-      lineinfile:
-        path: ~/.bashrc
-        line: 'export PATH=$PATH:/usr/bin/python3'
-        state: present
-        create: yes
-      become: no
-      
-    - name: Install PySpark using pip3
-      pip:
-        name: pyspark
-        executable: pip3
-    
 
 # Pyspark
 # Python 
