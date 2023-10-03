@@ -1,1 +1,99 @@
+---
+- name: Ubuntu PC setups
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Ensure APT is up-to-date
+      apt:
+        update_cache: yes
 
+    - name: Install Python 3 and pip
+      apt:
+        name: 
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install default-jdk for Java
+      apt:
+        name: default-jdk
+        state: present
+
+    - name: Install curl
+      apt:
+        name: curl
+        state: present
+
+    - name: Add Google Chrome APT key
+      apt_key:
+        url: https://dl.google.com/linux/linux_signing_key.pub
+        state: present
+
+    - name: Add Google Chrome APT repository
+      apt_repository:
+        repo: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main'
+        state: present
+
+    - name: Install Google Chrome
+      apt:
+        name: google-chrome-stable
+        state: present
+        update_cache: yes
+
+    - name: Add Microsoft APT key for Visual Studio Code
+      apt_key:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+
+    - name: Add Microsoft APT repository for Visual Studio Code
+      apt_repository:
+        repo: 'deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main'
+        state: present
+
+    - name: Install Visual Studio Code
+      apt:
+        name: code
+        state: present
+        update_cache: yes
+
+    - name: Install git and vim
+      apt:
+        name:
+          - git
+          - vim
+        state: present
+      
+    - name: Add Java to PATH
+      lineinfile:
+        path: ~/.bashrc
+        line: 'export PATH=$PATH:/usr/lib/jvm/java-11-openjdk-amd64/bin'
+        state: present
+        create: yes
+      become: no
+
+    - name: Add Python3 to PATH
+      lineinfile:
+        path: ~/.bashrc
+        line: 'export PATH=$PATH:/usr/bin/python3'
+        state: present
+        create: yes
+      become: no
+      
+    - name: Install PySpark using pip3
+      pip:
+        name: pyspark
+        executable: pip3
+    
+
+# Pyspark
+# Python 
+# Install Python
+    # Set PATH # See env vars
+    # Install venv 
+# Project dirs and 
+# Install Google Chrome 
+# Installing Visual Studio 
+## Create SSH keys (need this for any remotes)
+# Installing Java
+    # Set path 
+# Install curl 
