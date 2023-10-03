@@ -45,3 +45,8 @@ echo "export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> ~/.bashrc
 
 # Install curl 
 sudo snap install curl
+
+# Working on an Ansible playbook
+sudo apt update
+sudo apt install -y ansible
+## Then run the playbook
