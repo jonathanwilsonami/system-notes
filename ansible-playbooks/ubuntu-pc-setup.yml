@@ -103,3 +103,6 @@
 # Installing Java
     # Set path 
 # Install curl 
+# python_ml_play
+    # pip install -U scikit-learn
+    # python3 -m pip install tensorflow[and-cuda]
